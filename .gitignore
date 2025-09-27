@@ -1,0 +1,8 @@
+
+# === Ignore runtime/data ===
+/docker/mysql/data/
+/vendor/
+/node_modules/
+.env
+/storage/*.key
+/public/storage

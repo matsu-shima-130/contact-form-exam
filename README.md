@@ -65,44 +65,9 @@
 - MySQL 8.0.26
 - Nginx 1.21.1
 
-## ER図
+## ER 図
 
-```mermaid
-erDiagram
-  USERS ||--o{ CONTACTS : "created_by (任意)"
-  CATEGORIES ||--o{ CONTACTS : "1カテゴリ-多問い合わせ"
-
-  USERS {
-    bigint id PK
-    string name
-    string email UK
-    string password
-    timestamp email_verified_at
-    string remember_token
-    timestamps
-  }
-
-  CATEGORIES {
-    bigint id PK
-    string name
-    timestamps
-  }
-
-  CONTACTS {
-    bigint id PK
-    bigint category_id FK
-    string first_name
-    string last_name
-    tinyint gender  "1:男性 2:女性 3:その他"
-    string email
-    string tel
-    string postcode
-    string address
-    string building
-    text detail
-    timestamps
-  }
-```
+![ER図](docs/er.png)
 
 ## URL
 
