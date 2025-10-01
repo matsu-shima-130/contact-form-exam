@@ -1,0 +1,79 @@
+.contact-form__content {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 30px 15px;
+}
+
+.contact-form__heading h2 {
+    margin-bottom: 40px;
+    text-align: center;
+    color: #887969;
+    letter-spacing: .03em;
+    font: normal 25px "Alegreya", serif;
+}
+
+
+.confirm-table {
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+    background: #fff;
+    color: #887969;
+    border: 1px solid #e9e1da;
+}
+
+/* 左側の見出しセル */
+.confirm-table th {
+    width: 250px;
+    /* 好みで微調整可 */
+    background: #BAA899;
+    color: #fff;
+    text-align: left;
+    padding: 14px 50px;
+    border-bottom: 1px solid #e9e1da;
+    font-weight: 300;
+}
+
+/* 右側の値セル */
+.confirm-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid #e9e1da;
+    background: #fff;
+}
+
+/* ボタン行を中央に */
+.confirm-actions {
+    margin-top: 22px;
+    text-align: center;
+}
+
+/* 送信/修正ボタン（太字になりすぎないよう font-weight:500） */
+.btn {
+    display: inline-block;
+    min-width: 96px;
+    padding: 8px 18px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #6f5b4e;
+    font-size: 14px;
+    font-weight: 300;
+    /* ← 太すぎを回避 */
+    cursor: pointer;
+}
+
+.btn--primary {
+    background: #6f5b4e;
+    color: #fff;
+    border-color: #6f5b4e;
+    margin-right: 16px;
+}
+
+.btn--link {
+    color: #6f5b4e;
+    background: #fff;
+    border: none;
+    text-decoration: underline;
+    text-decoration-color: rgba(111, 91, 78, .35);
+    text-underline-offset: 3px;
+    text-decoration-thickness: 1px;
+}

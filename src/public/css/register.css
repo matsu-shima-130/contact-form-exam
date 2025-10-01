@@ -1,0 +1,96 @@
+/* ===== ページ背景（このCSSはログインページにだけ読み込まれる） ===== */
+main {
+    background: #EDE6DF;
+}
+
+/* ===== レイアウト ===== */
+.auth-page {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 38px 16px 80px;
+    color: #8B7969;
+}
+
+.auth__title {
+    text-align: center;
+    margin: 6px 0 22px;
+    font: normal 26px "Alegreya", serif;
+    letter-spacing: .02em;
+}
+
+/* カード */
+.auth-card {
+    width: min(520px, 92vw);
+    margin: 0 auto;
+    background: #fff;
+    border: 1px solid #E4D9CF;
+    border-radius: 6px;
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .03);
+    padding: 48px;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* ===== フォーム ===== */
+.form-row {
+    margin-bottom: 32px;
+}
+
+/* 好みで調整できる入力欄の幅（例: 360px） */
+:root {
+    --field-width: 300px;
+}
+
+/* 行ごとに幅を固定して中央に */
+.form-row {
+    width: var(--field-width);
+    margin: 0 auto 24px;
+}
+
+
+.form-label {
+    display: block;
+    margin: 0 0 10px;
+    text-align: left;
+    font-size: 16px;
+    color: #6f5b4e;
+}
+
+.input {
+    width: 100%;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #eee;
+    background: #F5F3F1;
+    color: #6f5b4e;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.input::placeholder {
+    color: #C7BBB1;
+    font-size: 12px;
+}
+
+/* ボタン */
+.form-actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.btn-auth {
+    min-width: 90px;
+    height: 32px;
+    padding: 0 20px;
+    border: 1px solid #6f5b4e;
+    background: #6f5b4e;
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-auth:hover {
+    filter: brightness(.98);
+}

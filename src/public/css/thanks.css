@@ -1,0 +1,77 @@
+.header {
+    display: none;
+}
+
+.thanks {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    color: #887969;
+    text-align: center;
+    padding: 20px 16px;
+    transform: translateY(4vh);
+}
+
+/* 薄い “Thank you” の背景文字 */
+.thanks::before {
+    content: "Thank you";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    font-family: "Alegreya", serif;
+    font-weight: 400;
+    letter-spacing: .02em;
+    /* ビューポートに合わせてサイズ可変 */
+    font-size: clamp(80px, 22vw, 360px);
+    color: #f3efec;
+    z-index: 0;
+}
+
+/* メインの文言 */
+.thanks__message {
+    position: relative;
+    z-index: 1;
+    /* 背景文字より手前 */
+    font-size: 20px;
+    line-height: 1.8;
+    font-weight: 600;
+    letter-spacing: .08em;
+    transform: translateY(10px);
+}
+
+
+.btn {
+    display: inline-block;
+    min-width: 96px;
+    padding: 8px 18px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: #6f5b4e;
+    font-size: 14px;
+    font-weight: 300;
+    cursor: pointer;
+}
+
+.btn--primary {
+    background: #6f5b4e;
+    color: #fff;
+    border-color: #6f5b4e;
+}
+
+.thanks__home {
+    z-index: 1;
+    padding: 5px 30px;
+}
+
+.btn,
+.btn:link,
+.btn:visited,
+.btn:hover,
+.btn:active {
+    text-decoration: none;
+}

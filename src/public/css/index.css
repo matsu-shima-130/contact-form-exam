@@ -1,0 +1,277 @@
+.contact-form__content {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 30px 15px;
+}
+
+.contact-form__heading h2 {
+    margin-bottom: 40px;
+    text-align: center;
+    color: #887969;
+    letter-spacing: .03em;
+    font: normal 25px "Alegreya", serif;
+}
+
+.form__group {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    column-gap: 32px;
+    row-gap: 18px;
+    margin-bottom: 18px;
+    align-items: center;
+}
+
+.form__group-title,
+.form__group-content,
+.form__label--required {
+    display: flex;
+    align-items: center;
+    min-height: 35px;
+}
+
+.form__group-content {
+    width: 100%;
+}
+
+.form__label--item {
+    color: #887969;
+    font-weight: 400;
+    line-height: 1;
+}
+
+.form__label--required {
+    margin-left: 1px;
+    color: #ff0000;
+    font-size: 14px;
+}
+
+.input-text {
+    width: 100%;
+    max-width: 450px;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 12px;
+    box-sizing: border-box;
+    background: #F4F4F4;
+    border: 1px solid #eee;
+    color: #a18a77;
+}
+
+.name-fields {
+    display: flex;
+    width:100%;
+    gap: 30px;
+}
+
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+.gender {
+    display: flex;
+    gap: 60px;
+    align-items: center;
+    margin: 0;
+    margin-left: 10px;
+    padding: 0;
+    border: 0;
+}
+
+.gender__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: #887969;
+    font-size: 14px;
+}
+
+.gender__item input[type="radio"] {
+    accent-color:  #887969;
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.gender__item span {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    padding-left: 24px;
+    cursor: pointer;
+    color: #887969;
+    font-size: 14px;
+}
+
+.gender__item span::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    transform: translateY(-50%);
+    border: 1.5px solid #c9bfb7;
+    border-radius: 50%;
+    background: #fff;
+    transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+
+.gender__item input[type="radio"]:checked+span::before {
+    background: #887969;
+    border-color: #887969;
+}
+
+.input-text--full{
+    max-width: none;
+    width: 100%;
+}
+
+.tel-fields {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    max-width: 880px;
+}
+
+.tel-sep {
+    color: #887969;
+    padding: 0 2px;
+    font-weight: 500;
+}
+
+.input-text--xs {
+    max-width: 200px;
+    width: 100%;
+    text-align: center;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 8px;
+}
+
+.select-box {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 450px;
+    /* input と同じ幅 */
+}
+
+/* セレクト本体 */
+.input-select {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 35px;
+    /* input と同じ高さ */
+    line-height: 35px;
+    padding: 0 36px 0 12px;
+    /* 右に矢印分の余白を確保 */
+    box-sizing: border-box;
+    background: #F4F4F4;
+    border: 1px solid #eee;
+    color: #887969;
+}
+
+/* 「選択してください」をグレーに見せたい場合 */
+.input-select:invalid {
+    color: #c5b3a5;
+}
+
+/* 右端の三角 ▼ */
+.select-arrow {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    width: 0;
+    height: 0;
+    transform: translateY(-50%);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+    border-top: 15px solid #c9bfb7;
+    /* ▼の色 */
+    pointer-events: none;
+}
+
+/* お問い合わせの種類だけ少し短くする */
+.select-box--sm {
+    max-width: 300px;
+    /* 好みで 340〜380px くらいに調整OK */
+}
+
+.form__group--top {
+    align-items: flex-start;
+}
+
+/* textarea を他の入力と揃えた見た目に */
+.input-textarea {
+    width: 100%;
+    max-width: 880px;
+    /* ← .input-text と同じ値に合わせる */
+    min-height: 160px;
+    padding: 12px;
+    box-sizing: border-box;
+    background: #F4F4F4;
+    border: 1px solid #eee;
+    color: #a18a77;
+    line-height: 1.7;
+    resize: none;
+}
+
+.form__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+}
+
+.btn {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    font: inherit;
+}
+
+.btn-confirm {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    height: 35px;
+    padding: 0 18px;
+
+    background: #887969;
+    /* トーンを合わせたブラウン */
+    color: #fff;
+    letter-spacing: .12em;
+    font-weight: 200;
+
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, .02) inset;
+    transition: transform .06s ease, background-color .15s ease, box-shadow .15s ease;
+}
+
+
+.btn-confirm:active {
+    transform: translateY(1px);
+    /* 押した感 */
+}
+
+.btn-confirm:focus-visible {
+    outline: 2px solid rgba(136, 121, 105, .35);
+    /* フォーカスリング */
+    outline-offset: 2px;
+}
+
+.btn-confirm:disabled {
+    background: #cfc7c1;
+    cursor: not-allowed;
+}

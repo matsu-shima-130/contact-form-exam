@@ -1,0 +1,322 @@
+/* ===== 共通 ===== */
+.admin {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 24px 16px 60px;
+    color: #887969
+}
+
+.admin__title {
+    text-align: center;
+    margin: 6px 0 22px;
+    font: normal 26px "Alegreya", serif;
+    letter-spacing: .02em
+}
+
+/* ===== フィルタ行 ===== */
+.filters {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+}
+
+.filters__kw,
+.filters__sel,
+.filters .btn,
+.filters__date {
+    height: 34px;
+    border: 1px solid #eee;
+    background: #f5f3f1;
+    color: #887969;
+    font-size: 14px;
+    box-sizing: border-box
+}
+
+.filters__kw {
+    width: 220px;
+    padding: 0 10px;
+}
+
+.filters__kw--wide {
+    width: 300px;
+}
+
+.filters__kw--wide::placeholder {
+    font-size: 12px;
+}
+
+.filters__sel {
+    padding: 0 8px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none
+}
+
+.filters__date {
+    height: 34px;
+    line-height: 34px;
+    padding-right: 26px;
+    width: 110px
+}
+
+
+
+.filters__date::-webkit-calendar-picker-indicator {
+    opacity: 0;
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.filters__sel--sm {
+    width: 70px
+}
+
+.filters__sel--md {
+    width: 165px
+}
+
+/* ▼マーク（select と date 共通） */
+.select {
+    position: relative;
+    display: inline-block
+}
+
+.select::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-53%);
+    font-size: 10px;
+    color: #aa9c90;
+    pointer-events: none
+}
+
+.select--date::after {
+    content: "▼";
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-53%);
+    font-size: 10px;
+    color: #aa9c90;
+    pointer-events: none;
+    /* これで▼はクリックを奪わない */
+}
+
+.filters .btn.btn--primary {
+    background: #6f5b4e;
+    color: #fff;
+    border-color: #6f5b4e;
+}
+
+.filters .btn.btn--reset {
+    background: #D9C6B5;
+    color: #fff;
+    border-color: #D9C6B5;
+}
+
+/* ボタン */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 14px;
+    border: 1px solid #88796933;
+    background: #fff;
+    color: #6f5b4e;
+    cursor: pointer
+}
+
+.btn--search,
+.btn--reset {
+    min-width: 88px;
+    text-align: center
+}
+
+
+.btn--export {
+    height: 36px;
+    padding: 0 12px;
+    background: #EDEAE6;
+    color: #AA9C90;
+    border: 1px solid #EDEAE6
+}
+
+.btn--link {
+    background: #fff;
+    border: none;
+    color: #6f5b4e;
+    text-decoration: underline;
+    text-underline-offset: 3px
+}
+
+/* エクスポート行 */
+.admin__actions {
+    margin: 10px 0 14px
+}
+
+/* ===== ページネーション（検索の下） ===== */
+.pager {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    margin: 12px 0 6px
+}
+
+.pager__btn,
+.pager__num {
+    min-width: 28px;
+    height: 30px;
+    border: 1px solid #e6ddd6;
+    background: #fff;
+    color: #6f5b4e
+}
+
+.pager__num.is-current {
+    background: #6f5b4e;
+    color: #fff;
+    border-color: #6f5b4e
+}
+
+/* ===== テーブル ===== */
+.tablewrap {
+    background: #fff
+}
+
+.tbl {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed
+}
+
+.tbl th,
+.tbl td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #ebe4de;
+    word-break: break-word
+}
+
+.tbl thead th {
+    background: #a99283;
+    color: #fff;
+    text-align: left;
+    font-weight: 400
+}
+
+.tbl__act {
+    width: 80px;
+    text-align: right
+}
+
+/* ===== モーダル（見た目だけ。JS追加で可視化） ===== */
+.modal[aria-hidden="true"] {
+    display: none
+}
+
+.modal[aria-hidden="false"] {
+    display: block
+}
+
+.modal__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .35)
+}
+
+.modal__dialog {
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: min(760px, 92vw);
+    max-height: 86vh;
+    overflow: auto;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 10px 28px rgba(0, 0, 0, .25);
+    padding: 26px 26px 22px
+}
+
+.modal__close {
+    position: absolute;
+    right: 14px;
+    top: 10px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: #fff;
+    color: #6f5b4e;
+    font-size: 20px;
+    cursor: pointer
+}
+
+.modal__title {
+    margin: 0 0 16px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #6f5b4e
+}
+
+.md-list {
+    display: grid;
+    gap: 10px
+}
+
+.md-list>div {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    align-items: start;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid #f0e9e3
+}
+
+.md-list dt {
+    color: #887969
+}
+
+.md-list dd {
+    margin: 0;
+    color: #6f5b4e
+}
+
+.modal__actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 18px
+}
+
+.btn--danger {
+    background: #a25656;
+    color: #fff;
+    border-color: #a25656
+}
+
+/* 検索バー直下の横並びバー（エクスポートとページネーション） */
+.subbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin: 10px 0 12px;
+}
+
+/* 既存の .admin__actions は余白を最小に（subbarで管理する） */
+.subbar .admin__actions {
+    margin: 0;
+}
+
+/* ページネーションは行内におさめる */
+.subbar .pager {
+    margin: 0;
+}
