@@ -94,3 +94,22 @@ main {
 .btn-auth:hover {
     filter: brightness(.98);
 }
+
+.form__error {
+    margin-top: 6px;
+    line-height: 1.5;
+    font-size: 13px;
+    color: #c5221f;
+    display: inline-block;
+    background: #fce8e6;
+    color: #c5221f;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin: 4px 6px 0 0;
+}
+
+.input.is-invalid {
+    border-color: #c5221f;
+    background-color: #fff7f7;
+    outline: none;
+}

@@ -33,6 +33,18 @@
     width: 100%;
 }
 
+.contact-form__content .form__group-content {
+    display: block;
+}
+
+.contact-form__content .name-fields,
+.contact-form__content .tel-fields {
+    display: flex;
+    gap: 12px;
+}
+
+
+
 .form__label--item {
     color: #887969;
     font-weight: 400;
@@ -61,8 +73,15 @@
     display: flex;
     width:100%;
     gap: 30px;
+    max-width: 450px;
 }
 
+.name-item {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-width: 0;
+}
 
 .sr-only {
     position: absolute;
@@ -137,15 +156,34 @@
 
 .tel-fields {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: 12px;
     width: 100%;
     max-width: 880px;
 }
 
+.tel-item {
+    display: flex;
+    flex-direction: column;
+    /* 入力 → エラー を縦に並べる */
+    flex: 1 1 0;
+    /* 3つを均等幅に */
+    min-width: 0;
+}
+
+.tel-item .input-text--xs {
+    max-width: none;
+    /* 200pxの上限を解除して均等に */
+    width: 100%;
+    text-align: center;
+}
+
 .tel-sep {
     color: #887969;
-    padding: 0 2px;
+    flex: 0 0 12px;
+    width: 12px;
+    text-align: center;
+    padding: 0;
     font-weight: 500;
 }
 
@@ -163,26 +201,21 @@
     display: inline-block;
     width: 100%;
     max-width: 450px;
-    /* input と同じ幅 */
 }
 
-/* セレクト本体 */
 .input-select {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
     height: 35px;
-    /* input と同じ高さ */
     line-height: 35px;
     padding: 0 36px 0 12px;
-    /* 右に矢印分の余白を確保 */
     box-sizing: border-box;
     background: #F4F4F4;
     border: 1px solid #eee;
     color: #887969;
 }
 
-/* 「選択してください」をグレーに見せたい場合 */
 .input-select:invalid {
     color: #c5b3a5;
 }
@@ -202,10 +235,8 @@
     pointer-events: none;
 }
 
-/* お問い合わせの種類だけ少し短くする */
 .select-box--sm {
     max-width: 300px;
-    /* 好みで 340〜380px くらいに調整OK */
 }
 
 .form__group--top {
@@ -250,7 +281,6 @@
     padding: 0 18px;
 
     background: #887969;
-    /* トーンを合わせたブラウン */
     color: #fff;
     letter-spacing: .12em;
     font-weight: 200;
@@ -267,11 +297,40 @@
 
 .btn-confirm:focus-visible {
     outline: 2px solid rgba(136, 121, 105, .35);
-    /* フォーカスリング */
     outline-offset: 2px;
 }
 
 .btn-confirm:disabled {
     background: #cfc7c1;
     cursor: not-allowed;
+}
+
+.form__error {
+    margin-top: 6px;
+    line-height: 1.5;
+    font-size: 13px;
+    color: #c5221f;
+}
+
+.form__error:empty {
+    display: none;
+}
+
+
+.form__error p,
+.form__error span {
+    display: inline-block;
+    background: #fce8e6;
+    color: #c5221f;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin: 4px 6px 0 0;
+}
+
+.input-text.is-invalid,
+.input-select.is-invalid,
+.input-textarea.is-invalid {
+    border-color: #c5221f;
+    background-color: #fff7f7;
+    outline: none;
 }

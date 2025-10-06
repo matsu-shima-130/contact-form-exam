@@ -9,7 +9,8 @@
     <div class="contact-form__heading">
         <h2>Contact</h2>
     </div>
-    <form class="form">
+    <form class="form" method="POST" action="{{ url('/confirm') }}" novalidate>
+    @csrf
         {{-- お名前 --}}
         <div class="form__group">
                 <div class="form__group-title">
@@ -18,10 +19,21 @@
                 </div>
             <div class="form__group-content">
                 <div class="name-fields">
-                    <input class="input-text" type="text" name="last_name"  placeholder="例: 山田">
-                    <input class="input-text" type="text" name="first_name" placeholder="例: 太郎">
+                    {{-- 姓 --}}
+                    <div class="name-item">
+                        <input class="input-text @error('last_name') is-invalid @enderror" type="text" name="last_name"
+                        placeholder="例: 山田"
+                        value="{{ old('last_name') }}">
+                        <div class="form__error">@error('last_name') <p>{{ $message }}</p> @enderror</div>
+                    </div>
+
+                    {{-- 名 --}}
+                    <div class="name-item">
+                        <input class="input-text @error('first_name') is-invalid @enderror" type="text" name="first_name" placeholder="例: 太郎"
+                        value="{{ old('first_name') }}">
+                        <div class="form__error">@error('first_name') <p>{{ $message }}</p> @enderror</div>
+                    </div>
                 </div>
-                <div class="form__error"><!-- バリデーション時に表示 --></div>
             </div>
         </div>
 
@@ -37,22 +49,27 @@
                     <legend class="sr-only">性別</legend>
 
                     <label class="gender__item">
-                        <input type="radio" name="gender" value="1" checked>
+                        <input type="radio" name="gender" value="1"
+                        {{ old('gender', '1')==='1' ? 'checked' : '' }}>
                         <span>男性</span>
                     </label>
 
                     <label class="gender__item">
-                        <input type="radio" name="gender" value="2">
+                        <input type="radio" name="gender" value="2"
+                        {{ old('gender')==='2' ? 'checked' : '' }}>
                         <span>女性</span>
                     </label>
 
                     <label class="gender__item">
-                        <input type="radio" name="gender" value="3">
+                        <input type="radio" name="gender" value="3"
+                        {{ old('gender')==='3' ? 'checked' : '' }}>
                         <span>その他</span>
                     </label>
                 </fieldset>
 
-                <div class="form__error"></div>
+                <div class="form__error">
+                    @error('gender') <p>{{ $message }}</p> @enderror
+                </div>
             </div>
         </div>
 
@@ -64,17 +81,16 @@
                 <span class="form__label--required">※</span>
             </div>
             <div class="form__group-content">
-            <input class="input-text input-text--full"
+            <input class="input-text input-text--full @error('email') is-invalid @enderror"
                 type="email"
                 name="email"
                 placeholder="例: test@example.com"
                 value="{{ old('email') }}"
                 required>
+                <div class="form__error">
+                    @error('email') <p>{{ $message }}</p> @enderror
+                </div>
             </div>
-            {{-- バリデーションメッセージ表示（あとで実装したときに出ます）--}}
-            @error('email')
-            <div class="form__error">{{ $message }}</div>
-            @enderror
         </div>
 
         {{-- 電話番号 --}}
@@ -86,40 +102,38 @@
 
             <div class="form__group-content">
                 <div class="tel-fields">
-                    <input class="input-text input-text--xs"
-                        type="tel"
+                    {{-- 080 --}}
+                    <div class="tel-item">
+                        <input class="input-text input-text--xs @error('tel1') is-invalid @enderror"
                         name="tel1"
                         placeholder="080"
-                        value="{{ old('tel1') }}"
-                        maxlength="4"
-                        required>
+                        value="{{ old('tel1') }}">
+                        <div class="form__error">@error('tel1') <p>{{ $message }}</p> @enderror</div>
+                    </div>
 
                     <span class="tel-sep">-</span>
 
-                    <input class="input-text input-text--xs"
-                        type="tel"
+                    {{-- 1234 --}}
+                    <div class="tel-item">
+                        <input class="input-text input-text--xs @error('tel2') is-invalid @enderror"
                         name="tel2"
                         placeholder="1234"
-                        value="{{ old('tel2') }}"
-                        maxlength="4"
-                        required>
+                        value="{{ old('tel2') }}">
+                        <div class="form__error">@error('tel2') <p>{{ $message }}</p> @enderror</div>
+                    </div>
 
                     <span class="tel-sep">-</span>
 
-                    <input class="input-text input-text--xs"
-                        type="tel"
+                    {{-- 5678 --}}
+                    <div class="tel-item">
+                    <input class="input-text input-text--xs @error('tel3') is-invalid @enderror"
                         name="tel3"
                         placeholder="5678"
-                        value="{{ old('tel3') }}"
-                        maxlength="4"
-                        required>
+                        value="{{ old('tel3') }}">
+                        <div class="form__error">@error('tel3') <p>{{ $message }}</p> @enderror</div>
+                    </div>
                 </div>
             </div>
-
-            {{-- ここは後でバリデーション実装時に出ます（個別でもOK） --}}
-            @error('tel1') <div class="form__error">{{ $message }}</div> @enderror
-            @error('tel2') <div class="form__error">{{ $message }}</div> @enderror
-            @error('tel3') <div class="form__error">{{ $message }}</div> @enderror
         </div>
 
         {{-- 住所 --}}
@@ -129,17 +143,17 @@
                 <span class="form__label--required">※</span>
             </div>
             <div class="form__group-content">
-            <input class="input-text input-text--full"
+            <input class="input-text input-text--full @error('address') is-invalid @enderror"
                 type="text"
                 name="address"
                 placeholder="例: 東京都渋谷区千駄ヶ谷1-2-3"
                 value="{{ old('address') }}"
                 autocomplete="street-address"
                 required>
+                <div class="form__error">
+                    @error('address') <p>{{ $message }}</p> @enderror
+                </div>
             </div>
-            @error('address')
-            <div class="form__error">{{ $message }}</div>
-            @enderror
         </div>
 
         {{-- 建物名（任意） --}}
@@ -155,9 +169,6 @@
                 value="{{ old('building') }}"
                 autocomplete="address-line2">
             </div>
-            @error('building')
-            <div class="form__error">{{ $message }}</div>
-            @enderror
         </div>
 
         {{-- お問い合わせの種類 --}}
@@ -169,14 +180,15 @@
 
             <div class="form__group-content">
                 <div class="select-box select-box--sm">
-                    <select class="input-select"
+                    <select class="input-select
+                        @error('category_id')
+                        is-invalid
+                        @enderror"
                         name="category_id"
-                        required
-                        aria-label="お問い合わせの種類">
+                        required>
                         {{-- プレースホルダ（未選択） --}}
                         <option value="" disabled {{ old('category_id') ? '' : 'selected' }}>選択してください</option>
 
-                        {{-- ★DBを使う場合 --}}
                         @isset($categories)
                         @foreach($categories as $category)
                         <option value="{{ $category->id }}"
@@ -185,20 +197,13 @@
                         </option>
                         @endforeach
                         @endisset
-
-                        {{-- ★まだDBが無いなら一旦固定でもOK
-                        <option value="1" {{ old('category_id')=='1' ? 'selected' : '' }}>商品の交換について</option>
-                        <option value="2" {{ old('category_id')=='2' ? 'selected' : '' }}>お届けについて</option>
-                        <option value="3" {{ old('category_id')=='3' ? 'selected' : '' }}>トラブル</option>
-                        --}}
                     </select>
                     <span class="select-arrow" aria-hidden="true"></span>
                 </div>
+                <div class="form__error">
+                    @error('category_id') <p>{{ $message }}</p> @enderror
+                </div>
             </div>
-
-            @error('category_id')
-                <div class="form__error">{{ $message }}</div>
-            @enderror
         </div>
 
         {{-- お問い合わせ内容 --}}
@@ -209,16 +214,15 @@
             </div>
 
             <div class="form__group-content">
-            <textarea class="input-textarea"
-            name="detail"
-            rows="6"
-            placeholder="お問い合わせ内容をご記載ください"
-            required>{{ old('detail') }}</textarea>
+                <textarea class="input-textarea @error('content') is-invalid @enderror"
+                name="content"
+                rows="6"
+                placeholder="お問い合わせ内容をご記載ください"
+                required>{{ old('content') }}</textarea>
+                <div class="form__error">
+                    @error('content') <p>{{ $message }}</p> @enderror
+                </div>
             </div>
-
-            @error('detail')
-            <div class="form__error">{{ $message }}</div>
-            @enderror
         </div>
 
         {{-- 送信アクション --}}

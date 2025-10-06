@@ -16,43 +16,48 @@
         <tr>
             <th>お名前</th>
             <td>
-                <span class="confirm__name">山田</span>
-                <span class="confirm__name">太郎</span>
+                {{ $input['last_name'] }}　{{ $input['first_name'] }}
             </td>
         </tr>
         <tr>
             <th>性別</th>
-            <td>男性</td>
+            <td>{{ $input['gender_label'] }}</td>
         </tr>
         <tr>
             <th>メールアドレス</th>
-            <td>test@example.com</td>
+            <td>{{ $input['email'] }}</td>
         </tr>
         <tr>
             <th>電話番号</th>
-            <td>08012345678</td>
+            <td>{{ $input['tel'] }}</td>
         </tr>
         <tr>
             <th>住所</th>
-            <td>東京都渋谷区千駄ヶ谷1-2-3</td>
+            <td>{{ $input['address'] }}</td>
         </tr>
         <tr>
             <th>建物名</th>
-            <td>千駄ヶ谷マンション101</td>
+            <td>{{ $input['building'] ?? '—' }}</td>
         </tr>
         <tr>
             <th>お問い合わせの種類</th>
-            <td>商品の交換について</td>
+            <td>{{ $input['category_label'] }}</td>
         </tr>
         <tr>
             <th>お問い合わせ内容</th>
-            <td>届いた商品が注文した商品ではありませんでした。</td>
+            <td>{{ $input['content'] }}</td>
         </tr>
 </table>
 
-<div class="confirm-actions">
-    <button type="button" class="btn btn--primary">送信</button>
-    <button type="button" class="btn btn--link">修正</button>
+<div class="confirm-actions" style="display:flex; gap:12px;">
+    <form method="POST" action="{{ url('/contacts') }}">
+            @csrf
+            <button type="submit" class="btn btn--primary">送信</button>
+        </form>
+    <form method="POST" action="{{ route('contact.back') }}">
+        @csrf
+        <button type="submit" class="btn btn--link">修正</button>
+    </form>
 </div>
 </div>
 </div>

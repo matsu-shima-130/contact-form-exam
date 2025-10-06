@@ -13,16 +13,26 @@
         <h2 class="auth__title">Login</h2>
 
         <div class="auth-card">
-            <form class="auth-form" action="{{ url('/login') }}" method="POST">
+            <form class="auth-form" action="{{ url('/login') }}" method="POST" novalidate>
             @csrf
                 <div class="form-row">
                     <label class="form-label" for="email">メールアドレス</label>
-                    <input id="email" class="input" type="email" name="email" placeholder="例: test@example.com">
+                    <input id="email"
+                    class="input @error('email') is-invalid @enderror"
+                    type="email"
+                    name="email"
+                    placeholder="例: test@example.com">
+                @error('email')    <p class="form__error">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-row">
                     <label class="form-label" for="password">パスワード</label>
-                    <input id="password" class="input" type="password" name="password" placeholder="例: coachtech1106">
+                    <input id="password"
+                    class="input @error('password') is-invalid @enderror"
+                    type="password"
+                    name="password"
+                    placeholder="例: coachtech1106">
+                    @error('password')    <p class="form__error">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-actions">

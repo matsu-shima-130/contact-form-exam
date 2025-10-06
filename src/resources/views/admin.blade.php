@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 @section('header-actions')
-    <a href="{{ url('/login') }}" class="header__btn">logout</a>
+    <form method="POST" action="{{ route('logout') }}">
+        @csrf
+        <button type="submit" class="header__btn">logout</button>
+    </form>
 @endsection
 
 @section('css')
@@ -37,12 +40,14 @@
         {{-- 4. お問い合わせの種類 --}}
         <label class="select">
             <select class="filters__sel filters__sel--md" name="category">
-                <option value="">お問い合わせの種類</option>
-                <option>商品のお届けについて</option>
-                <option>商品の交換について</option>
-                <option>商品トラブル</option>
-                <option>ショップへのお問い合わせ</option>
-                <option>その他</option>
+                <option value="" disabled {{ request('category') ? '' : 'selected' }}>
+                    お問い合わせの種類
+                </option>
+                @foreach ($categories as $cat)
+                    <option value="{{ $cat->content }}" {{ request('category')===$cat->content?'selected':'' }}>
+                        {{ $cat->content }}
+                    </option>
+                @endforeach
             </select>
         </label>
 
@@ -53,23 +58,18 @@
 
         {{-- 6. 検索/リセット --}}
         <button class="btn btn--primary btn--search" type="submit">検索</button>
-        <button class="btn btn--reset" type="reset">リセット</button>
+        <button class="btn btn--reset" type="button" onclick="location.href='{{ route('admin.index') }}'">リセット</button>
     </form>
 
-    {{-- 検索・リセットの直下：エクスポート＆ページネーションを同じ行に --}}
-<div class="subbar">
-    <div class="admin__actions">
-        <button class="btn btn--export" type="button">エクスポート</button>
+    {{-- エクスポート＆ページネーション --}}
+    <div class="subbar">
+        <div class="admin__actions">
+            <a class="btn btn--export" href="{{ route('admin.export', request()->query()) }}">エクスポート</a>
+        </div>
+
+        {{ $contacts->onEachSide(1)->links('pagination.admin') }}
     </div>
 
-    <nav class="pager" aria-label="ページ移動">
-        <button class="pager__btn" disabled>‹</button>
-        <button class="pager__num is-current">1</button>
-        <button class="pager__num">2</button>
-        <button class="pager__num">3</button>
-        <button class="pager__btn">›</button>
-    </nav>
-</div>
 
     {{-- 一覧（7件/ページ想定。今はダミー） --}}
     <div class="tablewrap">
@@ -84,45 +84,78 @@
                 </tr>
             </thead>
             <tbody>
-                @for ($i=0; $i<7; $i++)
-                    @php
-                        $nameLast='山田'; $nameFirst='太郎';
-                        $gender=['男性','女性','その他'][$i%3];
-                        $email='test@example.com';
-                        $category=['商品の交換について','商品トラブル','ショップへのお問い合わせ','その他','商品のお届けについて'][$i%5];
-                    @endphp
-                    <tr>
-                        <td>{{ $nameLast }}　{{ $nameFirst }}</td>
-                        <td>{{ $gender }}</td>
-                        <td>{{ $email }}</td>
-                        <td>{{ $category }}</td>
-                        <td class="tbl__act"><button type="button" class="btn btn--link">詳細</button></td>
-                        </tr>
-                @endfor
-            </tbody>
-        </table>
-    </div>
+@forelse ($contacts as $c)
+    <tr>
+        <td>{{ $c->full_name }}</td>
+        <td>{{ $c->gender_text }}</td>
+        <td>{{ $c->email }}</td>
+        <td>{{ optional($c->category)->content }}</td>
+        <td class="tbl__act">
+        <button
+        type="button"
+        class="btn btn--link"
+        data-name="{{ $c->full_name }}"
+        data-gender="{{ $c->gender_text }}"
+        data-email="{{ $c->email }}"
+        data-tel="{{ $c->tel }}"
+        data-address="{{ $c->address }}"
+        data-building="{{ $c->building }}"
+        data-category="{{ optional($c->category)->content }}"
+        data-detail="{{ $c->content }}"
+        data-delete-url="{{ route('admin.destroy', $c) }}"
+        onclick="openDetail(this)">
+        詳細
+        </button>
+    </td>
+    </tr>
+    @empty
+        <tr><td colspan="5">該当するデータはありません</td></tr>
+    @endforelse
+</tbody>
+</table>
+</div>
 
-    {{-- （必要になったときに差し込む）モーダル土台：JSなしで非表示のまま --}}
+    {{-- モーダル --}}
     <div class="modal" id="detailModal" aria-hidden="true">
-        <div class="modal__overlay"></div>
-            <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="mdTitle">
-            <button class="modal__close" aria-label="閉じる">×</button>
-            <h3 class="modal__title" id="mdTitle">お問い合わせ詳細</h3>
-            <dl class="md-list">
-                <div><dt>お名前</dt><dd>山田　太郎</dd></div>
-                <div><dt>性別</dt><dd>男性</dd></div>
-                <div><dt>メールアドレス</dt><dd>test@example.com</dd></div>
-                <div><dt>電話番号</dt><dd>08012345678</dd></div>
-                <div><dt>住所</dt><dd>東京都渋谷区千駄ヶ谷1-2-3</dd></div>
-                <div><dt>建物名</dt><dd>千駄ヶ谷マンション101</dd></div>
-                <div><dt>お問い合わせの種類</dt><dd>商品の交換について</dd></div>
-                <div><dt>お問い合わせ内容</dt><dd>……</dd></div>
+        <div class="modal__overlay" onclick="closeDetail()"></div>
+        <div class="modal__dialog" role="dialog" aria-modal="true" aria-labelledby="mdTitle">
+            <button class="modal__close" aria-label="閉じる" onclick="closeDetail()">×</button>
+            <dl class="md-list" id="mdList">
+                <!-- JSで埋める -->
             </dl>
             <div class="modal__actions">
-                <button class="btn btn--danger" type="button">削除</button>
+                <form id="deleteForm" method="POST">
+                @csrf @method('DELETE')
+                    <button class="btn btn--danger" type="submit" onclick="return confirm('削除しますか？')">削除</button>
+                </form>
             </div>
         </div>
     </div>
+
+    <script>
+function openDetail(btn){
+    const d = btn.dataset;   // ← 個別属性を取得
+    const m = document.getElementById('detailModal');
+    const list = document.getElementById('mdList');
+    const nl2br = (s) => (s || '').replace(/\n/g, '<br>');
+
+    list.innerHTML = `
+    <div><dt>お名前</dt><dd>${d.name || ''}</dd></div>
+    <div><dt>性別</dt><dd>${d.gender || ''}</dd></div>
+    <div><dt>メールアドレス</dt><dd>${d.email || ''}</dd></div>
+    <div><dt>電話番号</dt><dd>${d.tel || ''}</dd></div>
+    <div><dt>住所</dt><dd>${d.address || ''}</dd></div>
+    <div><dt>建物名</dt><dd>${d.building || ''}</dd></div>
+    <div><dt>お問い合わせの種類</dt><dd>${d.category || ''}</dd></div>
+    <div><dt>お問い合わせ内容</dt><dd>${nl2br(d.detail)}</dd></div>
+    `;
+
+    document.getElementById('deleteForm').action = d.deleteUrl;
+    m.setAttribute('aria-hidden', 'false');
+}
+function closeDetail(){
+    document.getElementById('detailModal').setAttribute('aria-hidden','true');
+}
+</script>
 </div>
 @endsection

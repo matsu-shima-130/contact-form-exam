@@ -2,11 +2,9 @@
 @extends('layouts.app')
 
 @section('css')
-    {{-- login.css をそのまま使ってサイズ/余白を統一 --}}
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 @endsection
 
-{{-- この画面だけヘッダーに login ボタンを表示 --}}
 @section('header-actions')
     <a href="{{ url('/login') }}" class="header__btn">login</a>
 @endsection
@@ -16,22 +14,39 @@
         <h2 class="auth__title">Register</h2>
 
         <div class="auth-card">
-            <form class="auth-form" action="{{ url('/register') }}" method="POST">
+            <form class="auth-form" action="{{ url('/register') }}" method="POST" novalidate>
                 @csrf
 
                 <div class="form-row">
                     <label class="form-label" for="name">お名前</label>
-                    <input id="name" class="input" type="text" name="name" placeholder="例: 山田　太郎">
+                    <input id="name"
+                    class="input @error('name') is-invalid @enderror"
+                    type="text"
+                    name="name"
+                    placeholder="例: 山田　太郎"
+                    value="{{ old('name') }}">
+                    @error('name') <p class="form__error">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-row">
                     <label class="form-label" for="email">メールアドレス</label>
-                    <input id="email" class="input" type="email" name="email" placeholder="例: test@example.com">
+                    <input id="email"
+                    class="input @error('email') is-invalid @enderror"
+                    type="email"
+                    name="email"
+                    placeholder="例: test@example.com"
+                    value="{{ old('email') }}">
+                    @error('email') <p class="form__error">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-row">
                     <label class="form-label" for="password">パスワード</label>
-                    <input id="password" class="input" type="password" name="password" placeholder="例: coachtech1106">
+                    <input id="password"
+                    class="input @error('password') is-invalid @enderror"
+                    type="password"
+                    name="password"
+                    placeholder="例: coachtech1106">
+                    @error('password') <p class="form__error">{{ $message }}</p> @enderror
                 </div>
 
                 <div class="form-actions">

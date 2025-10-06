@@ -22,10 +22,8 @@
     border: 1px solid #e9e1da;
 }
 
-/* 左側の見出しセル */
 .confirm-table th {
     width: 250px;
-    /* 好みで微調整可 */
     background: #BAA899;
     color: #fff;
     text-align: left;
@@ -34,20 +32,18 @@
     font-weight: 300;
 }
 
-/* 右側の値セル */
 .confirm-table td {
     padding: 14px 18px;
     border-bottom: 1px solid #e9e1da;
     background: #fff;
 }
 
-/* ボタン行を中央に */
 .confirm-actions {
     margin-top: 22px;
     text-align: center;
 }
 
-/* 送信/修正ボタン（太字になりすぎないよう font-weight:500） */
+/* 送信/修正ボタン */
 .btn {
     display: inline-block;
     min-width: 96px;
@@ -57,7 +53,6 @@
     color: #6f5b4e;
     font-size: 14px;
     font-weight: 300;
-    /* ← 太すぎを回避 */
     cursor: pointer;
 }
 
